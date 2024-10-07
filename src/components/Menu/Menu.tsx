@@ -7,9 +7,10 @@ export default function Menu() {
         <Link href="/">Home</Link>
       </li>
       <li>
-        <Link href="/sobre#empresa" scroll={false}>
-          Sobre
-        </Link>
+        <Link href="/sobre">Sobre</Link>
+      </li>
+      <li>
+        <Link href="/imc">IMC</Link>
       </li>
     </ul>
   );
