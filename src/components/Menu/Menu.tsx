@@ -35,6 +35,9 @@ export default async function Menu() {
         <Link href="/cursos">Cursos</Link>
       </li>
       <li>
+        <Link href="/cookies">Cookies</Link>
+      </li>
+      <li>
         {conta.autorizado ? conta.usuario : <Link href="/login">Login</Link>}
       </li>
     </ul>
