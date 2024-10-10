@@ -1,24 +1,36 @@
-import { cookies } from "next/headers";
-import Link from "next/link";
+"use client";
 
-export default async function Menu() {
-  let conta = {
+import { getPerfil } from "@/actions/perfil";
+import Link from "next/link";
+import { useParams } from "next/navigation";
+import { useEffect, useState } from "react";
+
+export type Conta = {
+  autorizado: boolean;
+  usuario: string;
+};
+
+export default function Menu() {
+  const params = useParams();
+
+  const [account, setAccount] = useState<Conta>({
     autorizado: false,
     usuario: "",
-  };
-
-  const token = cookies().get("token")?.value;
-
-  const response = await fetch("https://api.origamid.online/conta/perfil", {
-    method: "GET",
-    headers: {
-      Authorization: "Bearer " + token,
-    },
   });
 
-  if (response.ok) {
-    conta = await response.json();
-  }
+  useEffect(() => {
+    async function setConta() {
+      try {
+        const perfil = await getPerfil();
+
+        setAccount(perfil as Conta);
+      } catch (error) {
+        console.error("Erro ao carregar perfil:", error);
+      }
+    }
+
+    setConta();
+  }, []);
 
   return (
     <ul className="menu">
@@ -38,7 +50,7 @@ export default async function Menu() {
         <Link href="/cookies">Cookies</Link>
       </li>
       <li>
-        <Link href="/acoes">Ações</Link>
+        <Link href="/acoes">Ações: {params.acao}</Link>
       </li>
       <li>
         <Link href="/produtos">Produtos</Link>
@@ -47,7 +59,11 @@ export default async function Menu() {
         <Link href="/produtos/adicionar">Adicionar Produtos</Link>
       </li>
       <li>
-        {conta.autorizado ? conta.usuario : <Link href="/login">Login</Link>}
+        {account.autorizado ? (
+          account.usuario
+        ) : (
+          <Link href="/login">Login</Link>
+        )}
       </li>
     </ul>
   );
