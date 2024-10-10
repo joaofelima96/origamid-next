@@ -1,7 +1,7 @@
 "use server";
 
 import { revalidatePathAction } from "@/app/acoes/revalidate-path";
-import { Produto } from "@/app/produtos/page";
+import { Produto } from "@/components/ProdutosLista/ProdutosLista";
 import { redirect } from "next/navigation";
 
 export async function setProduct(produto: Produto) {
