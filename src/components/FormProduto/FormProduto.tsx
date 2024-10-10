@@ -1,7 +1,7 @@
 "use client";
 
 import { setProduct } from "@/actions/set-products";
-import { Produto } from "@/app/produtos/page";
+import { Produto } from "../ProdutosLista/ProdutosLista";
 
 export default function FormProduto() {
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
