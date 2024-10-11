@@ -1,4 +1,4 @@
-import { getAula } from "@/app/cursos";
+import { Aula, getAula, getCurso, getCursos } from "@/app/cursos";
 
 type PageParams = {
   params: {
@@ -6,6 +6,20 @@ type PageParams = {
     aula: string;
   };
 };
+
+export async function generateStaticParams() {
+  const pegarCursos = await getCursos();
+  const aulas = await Promise.all(
+    pegarCursos.map((curso) => getCurso(curso.slug))
+  );
+
+  return aulas
+    .reduce((acc: Aula[], curso) => acc.concat(curso.aulas), [])
+    .map((aula) => ({
+      curso: pegarCursos.find((curso) => curso.id === aula.curso_id)?.slug,
+      aula: aula.slug,
+    }));
+}
 
 export default async function AulaPage({ params }: PageParams) {
   console.log(params);

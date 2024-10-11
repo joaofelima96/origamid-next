@@ -1,4 +1,4 @@
-import { getCurso } from "@/app/cursos";
+import { getCurso, getCursos } from "@/app/cursos";
 import Link from "next/link";
 
 type PageParams = {
@@ -6,6 +6,18 @@ type PageParams = {
     curso: string;
   };
 };
+
+// gera uma página estática para os possíveis caminhos da rota dinâmica
+// isso faz com que o servidor já faça um fetch antes de mostrar para o usuário
+// tornando uma rota dinâmica em uma rota estática
+
+export async function generateStaticParams() {
+  const pegarCursos = await getCursos();
+
+  return pegarCursos.map((curso) => ({
+    curso: curso.slug,
+  }));
+}
 
 export default async function CursoPage({ params }: PageParams) {
   const curso = await getCurso(params.curso);

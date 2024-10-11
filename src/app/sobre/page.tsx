@@ -1,8 +1,7 @@
 import { Metadata } from "next";
-
 import dynamic from "next/dynamic";
 
-export const Width = dynamic(() => import("@/components/Width/Width"), {
+const Width = dynamic(() => import("@/components/Width/Width"), {
   ssr: false,
 });
 
