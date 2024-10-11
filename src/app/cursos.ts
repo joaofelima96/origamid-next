@@ -6,6 +6,7 @@ export type Curso = {
   total_aulas: number;
   total_horas: number;
   aulas: Aula[];
+  error?: string;
 };
 
 export type Aula = {
