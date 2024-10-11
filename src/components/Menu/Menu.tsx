@@ -23,7 +23,7 @@ export default function Menu() {
       try {
         const perfil = await getPerfil();
 
-        setAccount(perfil as Conta);
+        if (perfil) setAccount(perfil as Conta);
       } catch (error) {
         console.error("Erro ao carregar perfil:", error);
       }
