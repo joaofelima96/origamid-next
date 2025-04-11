@@ -56,6 +56,9 @@ export default function Menu() {
         <Link href="/produtos">Produtos</Link>
       </li>
       <li>
+        <Link href="/animais">Animais</Link>
+      </li>
+      <li>
         <Link href="/produtos/adicionar">Adicionar Produtos</Link>
       </li>
       <li>
